@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu Restaurant Ivoirien</title>
+  <link rel="stylesheet" href="menu.css">
+  <link rel="icon" type="jpeg" href="img/karim.jpeg">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <header>
+    <h1>Menu Ivoirien</h1>
+    <div class="filter-container">
+      <button class="filter-btn active" data-category="all">Tous</button>
+      <button class="filter-btn" data-category="plat">Plats</button>
+      <button class="filter-btn" data-category="entree">Entrées</button>
+      <button class="filter-btn" data-category="dessert">Desserts</button>
+      <button class="filter-btn" data-category="boisson">Boissons</button>
+    </div>
+
+    <!-- Un seul bouton panier -->
+    <button id="cart-btn" class="cart-btn">
+      <i class="fas fa-shopping-cart"></i> Panier
+    </button>
+
+    <div class="search-sort">
+      <input type="text" id="searchInput" placeholder="Rechercher un plat...">
+      <div class="sort-container">
+        <label for="sortSelect">Trier par :</label>
+        <select id="sortSelect">
+          <option value="name">Nom</option>
+          <option value="price">Prix</option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="menu-section" id="menu"></section>
+  </main>
+  <!-- Section pour afficher des messages d'information ou d'erreur -->
+  <!-- Cette section peut être utilisée pour afficher des notifications à l'utilisateur, par exemple lors de l'ajout au panier ou d'une erreur de paiement -->
+  <section id="info-message" class="info-message" style="display: none;"></section>
+  <!-- Modal Panier -->
+  <div id="cart-modal" class="cart-modal hidden">
+    <div class="cart-header">
+      <h3>Mon Panier</h3>
+      <button id="close-cart" class="close-cart">&times;</button>
+    </div>
+    <div class="cart-content">
+      <p id="empty-cart-message">Ajoutez des element à votre panier</p>
+      <ul id="cart-items" class="cart-items"></ul>
+      <div class="cart-total" id="cart-total">0 FCFA</div>    
+
+      <!-- Paiement Wave -->
+      <div id="payment-section">
+        <label for="wavePhone">Numéro Wave (ex: +22507000000) :</label>
+        <input type="text" id="wavePhone" placeholder="+22507000000" />
+        <button id="payWaveBtn">Payer avec Wave</button>
+        <p id="paymentMessage"></p>
+      </div>
+
+      <button id="checkout-btn" class="checkout-btn">Commander</button>
+    </div>
+  </div>
+<!-- ...avant </body>... -->
+<script>
+  // Gestion du bouton Commander
+  document.getElementById('checkout-btn').addEventListener('click', function() {
+    const cartItems = document.getElementById('cart-items');
+    const cartTotal = document.getElementById('cart-total');
+    const emptyCartMsg = document.getElementById('empty-cart-message');
+    const infoMsg = document.getElementById('info-message');
+
+    if (cartItems.children.length === 0) {
+      infoMsg.textContent = "Votre panier est vide.";
+      infoMsg.style.display = "block";
+      infoMsg.style.color = "red";
+      return;
+    }
+
+    // Message de confirmation
+    infoMsg.textContent = "Merci pour votre commande ! Elle a bien été prise en compte.";
+    infoMsg.style.display = "block";
+    infoMsg.style.color = "green";
+
+    // Vide le panier visuellement
+    cartItems.innerHTML = "";
+    cartTotal.textContent = "0 FCFA";
+    emptyCartMsg.style.display = "block";
+
+    // Si tu utilises aussi un tableau JS pour le panier, vide-le ici :
+    if (window.cart) window.cart = [];
+  });
+</script>
+  <script src="menu.js" defer></script>
+</body>
+</html>
