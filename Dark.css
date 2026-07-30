@@ -127,11 +127,21 @@ nav a:hover {
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
     /* Limite la largeur max de la photo pour qu'elle ne soit pas énorme sur tablette */
     max-width: 320px;
+    /* Empêche le cadre de dépasser la largeur de l'écran, quel que soit le contenu */
+    width: 100%;
     margin: 0 auto;
+    /* Coupe tout débordement interne, sécurité supplémentaire */
+    overflow: hidden;
+    box-sizing: border-box;
 }
 
 .profile {
     width: 100%;
+    /* Limite la hauteur de la photo pour éviter qu'un portrait ne devienne géant */
+    max-height: 320px;
+    /* Recadre la photo pour remplir le cadre sans la déformer */
+    object-fit: cover;
+    aspect-ratio: 1 / 1;
     border-radius: 20px;
     display: block;
 }
